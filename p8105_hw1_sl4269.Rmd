@@ -1,0 +1,40 @@
+---
+title: "p8105_hw1_sl4269"
+author: "Steven Lawrence"
+date: "September 12, 2019"
+output: html_document
+---
+
+#Problem 1
+
+## Creating the Data Frame
+
+Neccessary packages
+
+```{r Loading libraries, message=FALSE}
+library(tidyverse)
+library(ggplot2)
+```
+
+
+
+Data frame 
+
+```{r Dataframe 1}
+data <- tibble(
+  rvar = rnorm(8,0,1), #rvar = random variable N(0,1)
+  Logv = rvar > 0, #logic vector of rvar > 0
+  charv = as.character(rvar[]),#character vector of rvar
+  facv = as.factor(cut(rvar, 3,levels = c("1","2","3") , labels = FALSE, ordered_result = F))  #factor vecor of rvar 
+)
+```
+
+Taking the mean of every variable in dataframe1. 
+
+```{r}
+mean(data$rvar)
+
+
+```
+
+
