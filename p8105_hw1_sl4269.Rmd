@@ -2,7 +2,10 @@
 title: "p8105_hw1_sl4269"
 author: "Steven Lawrence"
 date: "September 12, 2019"
-output: github_document
+output: 
+  html_document:
+    toc: true
+    toc_float: true
 ---
 
 #Problem 1
@@ -14,11 +17,12 @@ Neccessary packages
 ```{r Loading libraries, message=FALSE, warning=FALSE}
 library(tidyverse)
 library(ggplot2)
+library(dplyr)
 ```
 
 ## Introducing Variable Types and Coercion 
 
-Data frame 
+###Data frame 1
 
 ```{r Dataframe 1}
 data <- tibble(
@@ -35,6 +39,7 @@ data <- tibble(
 )
 ```
 
+###Nature of Variable Means
 Taking the mean of every variable in dataframe1. 
 
 ```{r Means of data, message=FALSE, warning=FALSE}
@@ -46,6 +51,7 @@ mean(pull(data, facv))
 ```
 Taking the mean of the character and factor variable did not work. 
 
+###AS.Numeric?
 Converting the logic, character, and factor variale using as.numeric.
 
 ```{r coverting to numeric, message=FALSE, eval=FALSE}
@@ -59,9 +65,10 @@ The logic vector prints as 1's and 0's.  The character vector returns to a numbe
 
 ## Introducing inline code, and Plots
 
-Creating a data frame
+###Data frame 2
 
-```{r}
+Creating a data frame of random variables.
+```{r data frame 2, message=FALSE, warning=FALSE}
 data2 <- tibble(
   x = rnorm(500,0,1),
   y = rnorm(500,0,1),
@@ -70,9 +77,36 @@ data2 <- tibble(
   flogic_xy = as.factor(logic_xy)
   
   )
-
-head(data2)
 ```
+Here are some discriptive statistics of data2. The size of this data set is `r nrow(data2)` by `r ncol(data2)`. For the variable x, the mean is `r signif(mean(pull(data2,x)),2)`, median ,`r signif(median(pull(data2,x)),2)` and standard deviation is `r signif(sd(pull(data2,x)),2)`. The proportion of `x > y` is `r prop.table(table((pull(data2,x) > pull(data2,y))))[2] `.
 
+###Scatter plots of `x and y`
+
+```{r scatter plot, message=FALSE}
+data2 %>% ggplot(aes(x=x,y=y, color = logic_xy))+
+  geom_point()+
+  labs(color = "Logic vector", title = "X and Y Random Variables Colored by Logic Vector")
+
+data2 %>% ggplot(aes(x=x,y=y, color = nlogic_xy))+
+  geom_point()+
+  labs(color = "Numeric\nLogic vector",title = "X and Y Random Variables Colored by Numeric Logic Vector")
+
+data2 %>% ggplot(aes(x=x,y=y, color = flogic_xy))+
+  geom_point()+
+  labs(color = "Factored\nLogic vector",title = "X and Y Random Variables Colored by Factored Logic Vector")
+
+
+
+```
+In regards to how the variables were colored by the various vectors, I believe the logic vector and the factor factor vector are virtually the same.  The numeric vector introduced decimal values in the scale that are not used. 
+
+###GGsave
+Now I will save my ggplot scatter plots `ggsave`.
+
+
+```{r saving plot with ggsave, message=FALSE, eval=FALSE, warning=FALSE}
+
+ggsave(filename = 'data2.jpeg', device = jpeg, dpi = 260, width = 3, height = 4, scale = 2, units = "in")
+```
 
 
