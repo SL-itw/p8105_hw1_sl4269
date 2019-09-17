@@ -4,6 +4,7 @@ author: "Steven Lawrence"
 date: "September 12, 2019"
 output: 
   html_document:
+    code_folding: hide
     toc: true
     toc_float: true
 ---
@@ -42,6 +43,7 @@ data <- tibble(
 ###Nature of Variable Means
 Taking the mean of every variable in dataframe1. 
 
+mean of random, logic, character, and factor variables respectibely. 
 ```{r Means of data, message=FALSE, warning=FALSE}
 mean(pull(data, rvar))
 mean(pull(data,logicv))
