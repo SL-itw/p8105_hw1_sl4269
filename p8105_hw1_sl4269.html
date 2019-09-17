@@ -7,7 +7,6 @@
 <meta charset="utf-8" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
-<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
 <meta name="author" content="Steven Lawrence" />
@@ -72,7 +71,9 @@ h6 {
 </style>
 
 
+</head>
 
+<body>
 
 <style type="text/css">
 .main-container {
@@ -86,6 +87,7 @@ code {
 }
 img {
   max-width:100%;
+  height: auto;
 }
 .tabbed-pane {
   padding-top: 12px;
@@ -96,80 +98,22 @@ img {
 button.code-folding-btn:focus {
   outline: none;
 }
-summary {
-  display: list-item;
-}
 </style>
 
 
+
+<div class="container-fluid main-container">
 
 <!-- tabsets -->
-
-<style type="text/css">
-.tabset-dropdown > .nav-tabs {
-  display: inline-table;
-  max-height: 500px;
-  min-height: 44px;
-  overflow-y: auto;
-  background: white;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-}
-
-.tabset-dropdown > .nav-tabs > li.active:before {
-  content: "";
-  font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "";
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "";
-  font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
-}
-
-.tabset-dropdown > .nav-tabs > li.active {
-  display: block;
-}
-
-.tabset-dropdown > .nav-tabs > li > a,
-.tabset-dropdown > .nav-tabs > li > a:focus,
-.tabset-dropdown > .nav-tabs > li > a:hover {
-  border: none;
-  display: inline-block;
-  border-radius: 4px;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
-  display: block;
-  float: none;
-}
-
-.tabset-dropdown > .nav-tabs > li {
-  display: none;
-}
-</style>
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
 
 <!-- code folding -->
 
 
-
-
-</head>
-
-<body>
-
-
-<div class="container-fluid main-container">
 
 
 
@@ -179,27 +123,41 @@ summary {
 
 
 <h1 class="title toc-ignore">p8105_hw1_sl4269</h1>
-<h4 class="author">Steven Lawrence</h4>
-<h4 class="date">September 12, 2019</h4>
+<h4 class="author"><em>Steven Lawrence</em></h4>
+<h4 class="date"><em>September 12, 2019</em></h4>
 
 </div>
 
 
 <div id="problem-1" class="section level1">
 <h1>Problem 1</h1>
-<div id="creating-the-data-frame" class="section level2">
-<h2>Creating the Data Frame</h2>
 <p>Neccessary packages</p>
 <pre class="r"><code>library(tidyverse)
 library(ggplot2)</code></pre>
+<div id="introducing-variable-types-and-coercion" class="section level2">
+<h2>Introducing Variable Types and Coercion</h2>
 <p>Data frame</p>
 <pre class="r"><code>data &lt;- tibble(
   rvar = rnorm(8,0,1), #rvar = random variable N(0,1)
-  Logv = rvar &gt; 0, #logic vector of rvar &gt; 0
+  logicv = rvar &gt; 0, #logic vector of rvar &gt; 0
   charv = as.character(rvar[]),#character vector of rvar
   facv = as.factor(cut(rvar, 3,levels = c(&quot;1&quot;,&quot;2&quot;,&quot;3&quot;) , labels = FALSE, ordered_result = F))  #factor vecor of rvar 
 )</code></pre>
+<p>Taking the mean of every variable in dataframe1.</p>
+<pre><code>## [1] 0.09123869</code></pre>
+<pre><code>## [1] 0.5</code></pre>
+<pre><code>## [1] NA</code></pre>
+<pre><code>## [1] NA</code></pre>
+<p>Taking the mean of the character and factor variable did not work.</p>
+<p>Converting the logic, character, and factor variale using as.numeric.</p>
+<pre class="r"><code>as.numeric(pull(data,logicv))
+as.numeric(pull(data,charv))
+as.numeric(pull(data,facv))</code></pre>
+<p>The logic vector prints as 1’s and 0’s. The character vector returns to a number format. Lastly, the factor variable returns the levels as numeric values.</p>
 </div>
+</div>
+<div id="problem-2" class="section level1">
+<h1>Problem 2</h1>
 </div>
 
 
@@ -219,23 +177,6 @@ $(document).ready(function () {
 
 
 </script>
-
-<!-- tabsets -->
-
-<script>
-$(document).ready(function () {
-  window.buildTabsets("TOC");
-});
-
-$(document).ready(function () {
-  $('.tabset-dropdown > .nav-tabs > li').click(function () {
-    $(this).parent().toggleClass('nav-tabs-open')
-  });
-});
-</script>
-
-<!-- code folding -->
-
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>

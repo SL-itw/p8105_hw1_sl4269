@@ -23,7 +23,7 @@ Data frame
 ```{r Dataframe 1}
 data <- tibble(
   rvar = rnorm(8,0,1), #rvar = random variable N(0,1)
-  Logv = rvar > 0, #logic vector of rvar > 0
+  logicv = rvar > 0, #logic vector of rvar > 0
   charv = as.character(rvar[]),#character vector of rvar
   facv = as.factor(cut(rvar, 3,levels = c("1","2","3") , labels = FALSE, ordered_result = F))  #factor vecor of rvar 
 )
@@ -31,10 +31,20 @@ data <- tibble(
 
 Taking the mean of every variable in dataframe1. 
 
-```{r}
-mean(data$rvar)
-
+```{r Means of data, message=FALSE, echo=FALSE}
+mean(pull(data, rvar))
+mean(pull(data,logicv))
+mean(pull(data,charv))
+mean(pull(data, facv))
 
 ```
+Taking the mean of the character and factor variable did not work. 
 
+Converting the logic, character, and factor variale using as.numeric.
 
+```{r coverting to numeric, message=FALSE, eval=FALSE}
+as.numeric(pull(data,logicv))
+as.numeric(pull(data,charv))
+as.numeric(pull(data,facv))
+```
+The logic vector prints as 1's and 0's.  The character vector returns to a number format. Lastly, the factor variable returns the levels as numeric values. 
